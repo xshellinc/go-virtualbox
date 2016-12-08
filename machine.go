@@ -66,6 +66,7 @@ type Machine struct {
 	OSType     string
 	Flag       Flag
 	BootOrder  []string // max 4 slots, each in {none|floppy|dvd|disk|net}
+	Usb        UsbController
 }
 
 // Refresh reloads the machine information.
@@ -233,6 +234,12 @@ func GetMachine(id string) (*Machine, error) {
 		case "CfgFile":
 			m.CfgFile = val
 			m.BaseFolder = filepath.Dir(val)
+		case "usb":
+			m.Usb.Usb = val
+		case "ehci":
+			m.Usb.UsbType.Ehci = val
+		case "xhci":
+			m.Usb.UsbType.Xhci = val
 		}
 	}
 	if err := s.Err(); err != nil {
