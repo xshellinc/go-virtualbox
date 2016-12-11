@@ -1,6 +1,9 @@
 package virtualbox
 
-import "net"
+import (
+	"net"
+	"os"
+)
 
 // ParseIPv4Mask parses IPv4 netmask written in IP form (e.g. 255.255.255.0).
 // This function should really belong to the net package.
@@ -10,4 +13,9 @@ func ParseIPv4Mask(s string) net.IPMask {
 		return nil
 	}
 	return net.IPv4Mask(mask[12], mask[13], mask[14], mask[15])
+}
+
+func Exists(name string) bool {
+	_, err := os.Stat(name)
+	return err == nil
 }
