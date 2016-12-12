@@ -350,6 +350,21 @@ func (m *Machine) Modify() error {
 	return m.Refresh()
 }
 
+func (m *Machine) ModifySimple() error {
+	args := []string{"modifyvm", m.Name,
+		"--cpus", fmt.Sprintf("%d", m.CPUs),
+		"--memory", fmt.Sprintf("%d", m.Memory),
+		"--usb", fmt.Sprintf("%s", m.Usb.Usb),
+		"--usbehci", fmt.Sprintf("%s", m.Usb.UsbType.Ehci),
+		"--usbxhci", fmt.Sprintf("%s", m.Usb.UsbType.Ehci),
+	}
+
+	if err := vbm(args...); err != nil {
+		return err
+	}
+	return m.Refresh()
+}
+
 // AddNATPF adds a NAT port forarding rule to the n-th NIC with the given name.
 func (m *Machine) AddNATPF(n int, name string, rule PFRule) error {
 	return vbm("controlvm", m.Name, fmt.Sprintf("natpf%d", n),
