@@ -19,3 +19,12 @@ func Exists(name string) bool {
 	_, err := os.Stat(name)
 	return err == nil
 }
+
+func SystemProperties() (string, error) {
+
+	out, err := vbmOut("list", "systemproperties")
+	if err != nil {
+		return "", err
+	}
+	return out, nil
+}
