@@ -356,7 +356,7 @@ func (m *Machine) ModifySimple() error {
 		"--memory", fmt.Sprintf("%d", m.Memory),
 		"--usb", fmt.Sprintf("%s", m.Usb.Usb),
 		"--usbehci", fmt.Sprintf("%s", m.Usb.UsbType.Ehci),
-		"--usbxhci", fmt.Sprintf("%s", m.Usb.UsbType.Ehci),
+		"--usbxhci", fmt.Sprintf("%s", m.Usb.UsbType.Xhci),
 	}
 
 	if err := vbm(args...); err != nil {
